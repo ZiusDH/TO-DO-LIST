@@ -28,7 +28,8 @@ class MyHome extends StatefulWidget {
 }
 
 class MyHomeState extends State<MyHome> {
-  final TextEditingController taskController = TextEditingController();
+  final TextEditingController ControladorDeTarefas = TextEditingController();
+  final GlobalKey<FormState> _ChaveFormulario = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -42,11 +43,12 @@ class MyHomeState extends State<MyHome> {
         child: Column(
           children: <Widget>[
             Form(
+              key: _ChaveFormulario,
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child: TextFormField(
-                      controller: taskController,
+                      controller: ControladorDeTarefas,
                       style: TextStyle(
                         color: Colors.black54,
                         fontSize: 32,
@@ -58,12 +60,24 @@ class MyHomeState extends State<MyHome> {
                         ),
                       ),
                       keyboardType: TextInputType.text,
+                      validator: (_ChaveFormulario) {
+                        if (_ChaveFormulario.isEmpty) {
+                          return "Sem tarefas no campo";
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 20),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print("Clicado");
+                        if (_ChaveFormulario.currentState.validate()) {
+                          print(ControladorDeTarefas.text);
+                        }
+                        return null;
+                      },
                       child: Text("Adicionar"),
                     ),
                   )
