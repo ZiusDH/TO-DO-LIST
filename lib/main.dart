@@ -60,8 +60,8 @@ class MyHomeState extends State<MyHome> {
                         ),
                       ),
                       keyboardType: TextInputType.text,
-                      validator: (_ChaveFormulario) {
-                        if (_ChaveFormulario.isEmpty) {
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return "Sem tarefas no campo";
                         }
                         return null;
@@ -73,7 +73,7 @@ class MyHomeState extends State<MyHome> {
                     child: ElevatedButton(
                       onPressed: () {
                         print("Clicado");
-                        if (_ChaveFormulario.currentState.validate()) {
+                        if (_ChaveFormulario.currentState!.validate()) {
                           print(ControladorDeTarefas.text);
                         }
                         return null;
