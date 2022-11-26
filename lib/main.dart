@@ -30,6 +30,7 @@ class MyHome extends StatefulWidget {
 class MyHomeState extends State<MyHome> {
   final TextEditingController ControladorDeTarefas = TextEditingController();
   final GlobalKey<FormState> _ChaveFormulario = GlobalKey<FormState>();
+  List<String> _tarefas = List.empty();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -74,7 +75,8 @@ class MyHomeState extends State<MyHome> {
                       onPressed: () {
                         print("Clicado");
                         if (_ChaveFormulario.currentState!.validate()) {
-                          print(ControladorDeTarefas.text);
+                          _tarefas.add(ControladorDeTarefas.text);
+                          ControladorDeTarefas.clear();
                         }
                         return null;
                       },
@@ -84,6 +86,16 @@ class MyHomeState extends State<MyHome> {
                 ],
               ),
             ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _tarefas.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_tarefas[index]),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
